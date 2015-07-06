@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure>
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+	<Set name="contextPath">/timer/httptask</Set>
+</Configure>        
+<!-- vi:set tabstop=4 hardtabs=4 shiftwidth=4: -->

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    metadata-complete="false"
+    version="2.5"
+>
+	<display-name>PatrodyneTimerHttpTask</display-name>
+	<description>A simple TimerTask web application for HTTP launched jobs.</description>
+
+	<servlet>
+		<servlet-name>TimerHttpTask</servlet-name>
+		<servlet-class>org.patrodyne.timer.httptask.HttpTaskServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>TimerHttpTask</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Bind the container's properties to this web application. -->
+	<resource-ref>
+       <res-ref-name>timer/httptask</res-ref-name> 
+       <res-type>java.util.Properties</res-type>
+       <res-auth>Container</res-auth>
+       <res-sharing-scope>Unshareable</res-sharing-scope>
+    </resource-ref>
+</web-app>

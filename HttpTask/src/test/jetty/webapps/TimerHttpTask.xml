@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure>
+
+<!-- http://wiki.eclipse.org/Jetty/Feature/JNDI -->
+<Configure id="wacPatrodyneTimerHttpTask" class="org.eclipse.jetty.webapp.WebAppContext">
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Required minimal context configuration :                        -->
+	<!--	+ contextPath                                                -->
+	<!--	+ war OR resourceBase                                        -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<Set name="contextPath">/timer/httptask</Set>
+	<Set name="war"><SystemProperty name="jetty.home" default="target"/>/webapps/TimerHttpTask.war</Set>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- JNDI context configuration: Timer HttpTask Properties                     -->
+	<!-- Note: Used as a Resource in the HttpTaskServlet                           -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<New id="jobsPatrodyneTimerHttpTask" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg><Ref refid="wacPatrodyneTimerHttpTask"/></Arg>
+		<Arg>timer/httptask</Arg>
+		<Arg>
+			<New class="java.util.Properties">
+				<Call name="setProperty">
+					<Arg>TIMEAPI-UTC-NOW</Arg> 
+					<Arg>FD|15000|60000|http://www.timeapi.org/utc/now.json</Arg>
+				</Call>
+				<Call name="setProperty">
+					<Arg>TIMEAPI-EDT-NOW</Arg> 
+					<Arg>FD|30000|60000|http://www.timeapi.org/edt/now.json</Arg>
+				</Call>
+				<Call name="setProperty">
+					<Arg>TIMEAPI-PDT-NOW</Arg> 
+					<Arg>FD|45000|60000|http://www.timeapi.org/pdt/now.json</Arg>
+				</Call>
+			</New>
+		</Arg>
+	</New>
+
+</Configure> 
+<!-- vi:set tabstop=4 hardtabs=4 shiftwidth=4: -->
