@@ -117,12 +117,12 @@ public class HttpTask
 	{
 		this.response = response;
 	}
-	
+
 	/**
 	 * Construct with a title and HTTP service locator.
 	 * 
 	 * @param title The task title.
-	 * @param url The task locator.
+	 * @param service The task locator.
 	 */
 	public HttpTask(String title, URL service)
 	{
@@ -157,5 +157,4 @@ public class HttpTask
 		}
 	}
 }
-
 // vi:set tabstop=4 hardtabs=4 shiftwidth=4:

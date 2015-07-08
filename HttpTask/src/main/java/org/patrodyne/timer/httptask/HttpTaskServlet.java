@@ -18,6 +18,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * A servlet to initiate Timer managed tasks and invoke HTTP endpoints
+ * on a periodic schedule. Tasks are configured from properties provided
+ * at the JNDI path, java:comp/env/timer/httptask. Each JDNI property
+ * provides a key (job name) and value TYPE|DELAY|PERIOD|URL where
+ * 
+ *   TYPE = FD (fixed delay) or FR (fixed rate)
+ *   DELAY = initial offset in milliseconds
+ *   PERIOD = time between invocations in milliseconds
+ *   URL = an HTTP endpoint.
+ *
+ * @author Rick O'Sullivan
+ */
 public class HttpTaskServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 20150701L;
@@ -170,10 +183,34 @@ public class HttpTaskServlet extends HttpServlet
 		page.append("  <title>"+task.getTitle()+"</title>\n");
 		page.append("</head>\n");
 		page.append("<body>\n");
-		page.append("  <pre>"+task.getResponse()+"</pre>\n");
+		page.append("  <pre>"+escape(task.getResponse())+"</pre>\n");
 		page.append("</body>\n");
 		page.append("</html>\n");
 		return page.toString();
+	}
+
+	/**
+	 * Replace special characters with HTTP escape codes.
+	 * @param text Text to be escaped.
+	 * @return Text after replacement.
+	 */
+	private String escape(String text)
+	{
+		if ( text != null )
+			return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+		else
+			return text;
+	}
+
+    /**
+     * Called by the servlet container to indicate to a servlet that the
+     * servlet is being taken out of service. Cancels and purges tasks
+     * managed by the Timer.
+     */
+	public void destroy()
+	{
+		getTimer().cancel();
+		getTimer().purge();
 	}
 }
 // vi:set tabstop=4 hardtabs=4 shiftwidth=4:
