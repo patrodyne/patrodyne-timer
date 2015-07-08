@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Context>
+<!-- 
+	In Apache Tomcat, the Context Container represents a single web application
+	running within a given instance of Tomcat.  A web site is made up of one or
+	more Contexts.  For each explicitly configured web application, there should be
+	one context element either in server.xml or in a separate context XML fragment
+	file in the classpath at /META-INF/context.xml.
+
+	See https://tomcat.apache.org/tomcat-7.0-doc/config/context.html
+
+	reloadable: Set to true to monitor classes in /WEB-INF/classes/ and /WEB-INF/lib for changes.
+	            This feature is very useful during application development, but it requires 
+				significant runtime overhead and is not recommended for use on deployed production 
+				applications. 
+	
+	crossContext: Set to true if you want calls within this application to ServletContext.getContext() 
+	              to successfully return a request dispatcher for other web applications running on 
+				  this virtual host. Set to false (the default) in security conscious environments, 
+				  to make getContext() always return null.
+
+	unpackWar: Explodes this WAR in the webapps sub-directory.
+-->
+<Context reloadable="false" crossContext="false" unpackWAR="false">
+
+	<!-- Resource Elements
+		Configure the name and data type of a resource made available to the
+		application (equivalent to the inclusion of a <resource-ref> element in the
+		web application deployment descriptor). Tomcat includes a series of standard 
+		resource factories: 
+
+			"Generic JavaBean" 
+				* create objects that conforms to JavaBeans conventions.
+				* factory="org.apache.naming.factory.BeanFactory"
+				* type="com.acme.CustomBean"
+			"UserDatabase"
+				* for use by a Authentication UserDatabase realm.
+				* factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+				* type="org.apache.catalina.UserDatabase"
+			"JavaMail Sessions"
+				* create javax.mail.Session session instances
+				* type="javax.mail.Session"
+				* mail.smtp.host="localhost"
+				* additional attributes are converted to java.util.Properties.
+			"JDBC Data Source"
+				* connection pool for JDBC connections
+				* type="javax.sql.DataSource"
+				* standard attributes, see Ref below.
+			"Generic Naming"
+				* Simple way of configuring generic resources by using reflection.
+				* factory="org.apache.tomcat.jdbc.naming.GenericNamingResourcesFactory"
+				* type=java.util.Properties
+				* type="com.acme.CustomBean"
+			"Custom Resource Factories"
+				* implement javax.naming.spi.ObjectFactory interface
+				* Reference.getAll() provides the custom attributes.
+
+		Notes: 
+		* Ref: http://tomcat.apache.org/tomcat-7.0-doc/jndi-resources-howto.html
+		* Set attribute singleton="false" to create new instances. 
+	-->
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- JNDI context configuration: Timer HttpTask Properties                     -->
+	<!-- Note: Used as a Resource in the HttpTaskServlet                           -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<Resource name="timer/httptask" auth="Container" 
+		factory="org.apache.tomcat.jdbc.naming.GenericNamingResourcesFactory"
+		type="java.util.Properties"
+		TIMEAPI-UTC-NOW="FD|15000|60000|http://www.timeapi.org/utc/now.json"
+		TIMEAPI-EDT-NOW="FD|30000|60000|http://www.timeapi.org/edt/now.json"
+		TIMEAPI-PDT-NOW="FD|45000|60000|http://www.timeapi.org/pdt/now.json"
+	/>	
+
+</Context>
+<!-- vi:set tabstop=4 hardtabs=4 shiftwidth=4: -->
+
