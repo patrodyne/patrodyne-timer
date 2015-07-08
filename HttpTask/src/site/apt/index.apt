@@ -1,0 +1,60 @@
+Web Application
+
+  <<TimerHttpTask>> is a simple web application to execute HTTP endpoints at fixed periods.
+  It is a simple task scheduler. Packaged as a Java WAR file, <<TimerHttpTask>> can be
+  deployed into any servlet container. Use it to run HTTP tasks on a continuous
+  schedule. 
+
+* Timer Managed Tasks
+
+  Java provides a facility to schedule tasks for repeated execution in the background. 
+  The facility uses a <<Timer>> object to schedule <<TimerTask>> implementation(s). The 
+  <<Timer>> object manages the task life cycle: run, cancel and purge. Tasks can be 
+  scheduled to run at fixed delays or at fixed rates.
+
+  * Fixed Delay -  scheduled to run relative to when task was last finished.
+
+  * Fixed Rate - scheduled to run relative to when task was first started.
+
+  See {{{http://docs.oracle.com/javase/7/docs/api/java/util/Timer.html}Timer}}.
+
+* HttpTask extends TimerTask
+
+  The <<Timer>> facility runs implementations of <<TimerTask>> to define the job 
+  execution. This project implements <<TimerTask>> as an <<HttpTask>> to execute 
+  web methods. The task gets a web method and logs the results.
+
+  See {{{http://docs.oracle.com/javase/7/docs/api/java/util/TimerTask.html}TimerTask}}.
+
+* JNDI Configured Jobs
+
+  When <<TimerHttpTask>> starts, it looks for a JNDI entry at <<<java:comp/env/timer/httptask>>>.
+  The entry represents a <<<java.util.Properties>>> object, a list of name-value pairs.
+
+  Each JDNI property provides a key (job name) and value <<<TYPE|DELAY|PERIOD|URL>>> where:
+ 
+  <<TYPE>> = FD (fixed delay) or FR (fixed rate).
+
+  <<DELAY>> = initial offset in milliseconds.
+
+  <<PERIOD>> = time between invocations in milliseconds.
+
+  <<URL>> = the HTTP endpoint.
+
+  * {{{http://docs.oracle.com/javase/jndi/tutorial}The JNDI Tutorial}}
+
+  * {{{https://wiki.eclipse.org/Jetty/Feature/JNDI}Jetty JNDI}}
+
+  * {{{https://tomcat.apache.org/tomcat-7.0-doc/jndi-resources-howto.html}Tomcat JNDI}}
+
+* Task Response Page
+
+  The task response page at <<<http://host:port/timer/httptask>>> cycles through the latest
+  response from each <<HttpTask>>.
+
+* Logging
+
+  <<TimerHttpTask>> uses SLF4J to log response messages from each <<HttpTask>>.
+
+  See {{{http://www.slf4j.org}Simple Logging Facade for Java}}
+
