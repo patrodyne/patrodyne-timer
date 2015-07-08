@@ -390,6 +390,7 @@
 										<filtersfile file="src/site/properties/css/${color.scheme}" />
 									</filterset>
 								</copy>
+								<!--
 								<copy file="src/site/templates/css/apidocs.css" toFile="${site.home}/apidocs/stylesheet.css" overwrite="true">
 									<filterset>
 										<filtersfile file="src/site/properties/css/${color.scheme}" />
@@ -400,6 +401,7 @@
 										<filtersfile file="src/site/properties/css/${color.scheme}" />
 									</filterset>
 								</copy>
+								-->
 							</target>
 						</configuration>
 					</execution>
