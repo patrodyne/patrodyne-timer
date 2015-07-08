@@ -2,7 +2,7 @@
 <!DOCTYPE Configure>
 
 <!-- http://wiki.eclipse.org/Jetty/Feature/JNDI -->
-<Configure id="wacPatrodyneTimerHttpTask" class="org.eclipse.jetty.webapp.WebAppContext">
+<Configure id="wacTimerHttpTask" class="org.eclipse.jetty.webapp.WebAppContext">
 
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- Required minimal context configuration :                        -->
@@ -16,8 +16,8 @@
 	<!-- JNDI context configuration: Timer HttpTask Properties                     -->
 	<!-- Note: Used as a Resource in the HttpTaskServlet                           -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<New id="jobsPatrodyneTimerHttpTask" class="org.eclipse.jetty.plus.jndi.Resource">
-		<Arg><Ref refid="wacPatrodyneTimerHttpTask"/></Arg>
+	<New id="jobsTimerHttpTask" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg><Ref refid="wacTimerHttpTask"/></Arg>
 		<Arg>timer/httptask</Arg>
 		<Arg>
 			<New class="java.util.Properties">
