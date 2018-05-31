@@ -23,15 +23,15 @@
 			<New class="java.util.Properties">
 				<Call name="setProperty">
 					<Arg>TIMEAPI-UTC-NOW</Arg> 
-					<Arg>FD|15000|60000|http://www.timeapi.org/utc/now.json</Arg>
+					<Arg>FD|15000|60000|http://worldclockapi.com/api/json/utc/now</Arg>
 				</Call>
 				<Call name="setProperty">
 					<Arg>TIMEAPI-EDT-NOW</Arg> 
-					<Arg>FD|30000|60000|http://www.timeapi.org/edt/now.json</Arg>
+					<Arg>FD|30000|60000|http://worldclockapi.com/api/json/est/now</Arg>
 				</Call>
 				<Call name="setProperty">
 					<Arg>TIMEAPI-PDT-NOW</Arg> 
-					<Arg>FD|45000|60000|http://www.timeapi.org/pdt/now.json</Arg>
+					<Arg>FD|45000|60000|http://worldclockapi.com/api/json/pst/now</Arg>
 				</Call>
 			</New>
 		</Arg>

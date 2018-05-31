@@ -67,9 +67,9 @@
 	<Resource name="timer/httptask" auth="Container" 
 		factory="org.apache.tomcat.jdbc.naming.GenericNamingResourcesFactory"
 		type="java.util.Properties"
-		TIMEAPI-UTC-NOW="FD|15000|60000|http://www.timeapi.org/utc/now.json"
-		TIMEAPI-EDT-NOW="FD|30000|60000|http://www.timeapi.org/edt/now.json"
-		TIMEAPI-PDT-NOW="FD|45000|60000|http://www.timeapi.org/pdt/now.json"
+		TIMEAPI-UTC-NOW="FD|15000|60000|http://worldclockapi.com/api/json/utc/now"
+		TIMEAPI-EDT-NOW="FD|30000|60000|http://worldclockapi.com/api/json/est/now"
+		TIMEAPI-PDT-NOW="FD|45000|60000|http://worldclockapi.com/api/json/pst/now"
 	/>	
 
 </Context>
